@@ -3,6 +3,7 @@ pipeline {
   environment {
     registry = "tannedlamb/capstone"
     registryCredential = 'dockerhub_creds'
+    capstoneImage = ''
   }
 
   agent any
@@ -22,7 +23,7 @@ pipeline {
     stage('Build capstone application image') {
       steps {
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+          capstoneImage = docker.build registry + ":$BUILD_NUMBER"
         }
       }
     }
@@ -31,7 +32,7 @@ pipeline {
       steps{
          script {
             docker.withRegistry('', registryCredential ) {
-            dockerImage.push()
+            capstoneImage.push()
           }
         }
       }
