@@ -19,11 +19,27 @@ pipeline {
       }
     }
 
-    stage('Build capstone application') {
+    stage('Build capstone application image') {
       steps {
         script {
           docker.build registry + ":$BUILD_NUMBER"
         }
+      }
+    }
+
+    stage('Push image to Dockerhub') {
+      steps{
+         script {
+            docker.withRegistry('', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+
+    stage('Remove Unused docker image locallly') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
   }
