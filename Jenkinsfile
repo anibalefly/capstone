@@ -47,7 +47,7 @@ pipeline {
     stage('Deploy image to EKS') {
       steps{
         sh "aws eks update-kubeconfig --name capstone-cluster"
-        sh "kubectl set image deployments/jt-capstone-deployment jt-capstone=jocatalin/tannedlamb/capstone:$BUILD_NUMBER"
+        sh "kubectl set image deployments/jt-capstone-deployment jt-capstone=tannedlamb/capstone:$BUILD_NUMBER"
       }
     }
   }
