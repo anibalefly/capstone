@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: jt-capstone
-          image: tannedlamb/capstone:$BUILD_NUMBER
+          image: tannedlamb/capstone:10
           ports:
           - containerPort: 80
 ---
